@@ -29,15 +29,15 @@ ARG N8N_USER_FOLDER=/home/node/.n8n
 RUN mkdir -p ${N8N_USER_FOLDER}/custom/extensions
 
 # Step 7: Copy your assistant's zip file into the Docker image
-# This takes 'n8n-assistant-source.zip' from your 'my-custom-n8n' folder
+# This takes 'n8n-assistant-source.zip' from your 'n8n-assistant' folder
 # and puts it into a temporary location inside the Docker image.
 # '--chown=node:node' ensures the 'node' user owns the file.
 COPY --chown=node:node n8n-assistant-source.zip /tmp/n8n-assistant-source.zip
 
 # Step 8: Unzip the assistant's source code
 # This unzips the file into another temporary folder inside the image.
-RUN mkdir -p /tmp/unzipped_assistant_source && \
-    unzip /tmp/n8n-assistant-source.zip -d /tmp/unzipped_assistant_source/ && \
+RUN mkdir -p /tmp/unzipped-assistant-source && \
+    unzip /tmp/n8n-assistant-source.zip -d /tmp/unzipped-assistant-source/ && \
     rm /tmp/n8n-assistant-source.zip
 # This command does three things in order:
 # 1. 'mkdir -p ...': Creates a temporary folder for the unzipped files.
@@ -45,14 +45,14 @@ RUN mkdir -p /tmp/unzipped_assistant_source && \
 # 3. 'rm ...': Deletes the .zip file (we don't need it anymore since it's unzipped).
 
 # Step 9: Move the important part of the assistant to the right place
-# Your zip file contains several things, but the actual n8n extension is in 'n8n_assistant_package/'.
-# We move this 'n8n_assistant_package/' folder to n8n's custom extensions folder.
-# AND we rename 'n8n_assistant_package/' to 'n8n-assistant' because the assistant's setup guide expects this name.
-RUN mv /tmp/unzipped_assistant_source/n8n_assistant_package ${N8N_USER_FOLDER}/custom/extensions/n8n-assistant && \
-    rm -rf /tmp/unzipped_assistant_source
+# Your zip file contains several things, but the actual n8n extension is in 'n8n-assistant-package/'.
+# We move this 'n8n-assistant-package/' folder to n8n's custom extensions folder.
+# AND we rename 'n8n-assistant-package/' to 'n8n-assistant' because the assistant's setup guide expects this name.
+RUN mv /tmp/unzipped-assistant-source/n8n-assistant-package ${N8N_USER_FOLDER}/custom/extensions/n8n-assistant && \
+    rm -rf /tmp/unzipped-assistant-source
 # This command does two things in order:
-# 1. 'mv ...': Moves the 'n8n_assistant_package/' folder to become '/home/node/.n8n/custom/extensions/n8n-assistant'.
-# 2. 'rm -rf ...': Deletes the temporary '/tmp/unzipped_assistant_source' folder and anything else that was in the zip (like 'app/', 'knowledge_base/', documentation files, etc.), as they are not needed for *this specific n8n extension installation*.
+# 1. 'mv ...': Moves the 'n8n-assistant-package/' folder to become '/home/node/.n8n/custom/extensions/n8n-assistant'.
+# 2. 'rm -rf ...': Deletes the temporary '/tmp/unzipped-assistant-source' folder and anything else that was in the zip (like 'app/', 'knowledge_base/', documentation files, etc.), as they are not needed for *this specific n8n extension installation*.
 
 # Step 10: Change the current directory to the assistant's folder
 # This is like using the 'cd' command to go into the '/home/node/.n8n/custom/extensions/n8n-assistant' folder.
