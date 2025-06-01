@@ -1,4 +1,5 @@
-# n8n_assistant
+# n8n guru
+## a context-aware assistant, working alongside you in n8n
 This project is a lightweight context-aware assistant app that integrates with n8n to provide assistance with JSON formatting, workflow error correction, prompt writing, and other n8n-related tasks. The app features a dark mode UI, interchangeable AI agents running off your API keys, and a comprehensive knowledge base built from n8n documentation.
 ## Repository Structure
 
