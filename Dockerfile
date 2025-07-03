@@ -1,6 +1,5 @@
 # Step 1: Start with the official n8n image
 # IMPORTANT: Use the SAME n8n version you're currently running!
-# Find this version in your Render service settings or n8n dashboard (like in image_1bb6ac.png).
 # Replace 'latest' below with your specific version if you know it (e.g., '1.23.0'). If not, 'latest' might work but matching version is best.
 FROM n8nio/n8n:latest
 
@@ -8,11 +7,10 @@ FROM n8nio/n8n:latest
 # This is needed for the next step to enable 'pnpm'.
 USER root
 
-# Step 3: Enable 'pnpm' (a special tool the assistant needs for installation)
+# Step 3: Enable 'pnpm'
 # 'corepack enable pnpm' is the recommended way to make pnpm available.
 RUN corepack enable pnpm
-# What if this 'corepack' step fails during the build?
-# An alternative (but try corepack first) would be to replace the line above with:
+# If this 'corepack' step fails during the build an alternative (but try corepack first) would be to replace the line above with:
 # RUN npm install -g pnpm
 
 # Step 4: Switch back to the standard 'node' user
